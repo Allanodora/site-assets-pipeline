@@ -102,6 +102,42 @@ Optional arguments:
 The watcher creates a `output/review/` preview for quick human review and writes
 metadata to `metadata/catalog.json` as images are processed.
 
+## Syncthing Setup (Phone → PC)
+Use Syncthing to sync your phone gallery into one or more local folders, then point the watcher at those folders.
+
+1. Install Syncthing on phone + desktop and pair devices.
+2. Create a Syncthing folder on desktop (example): `~/Desktop/photobank`
+3. Sync your phone gallery into that folder.
+4. Start the watcher:
+
+```bash
+python watch_pipeline.py \
+  --watch "/Users/allanodora/Desktop/photobank" \
+  --output output
+```
+
+For multiple Syncthing folders, repeat `--watch`:
+
+```bash
+python watch_pipeline.py \
+  --watch "/Users/allanodora/Desktop/Photos3" \
+  --watch "/Users/allanodora/Desktop/Social media IMG" \
+  --watch "/Users/allanodora/Desktop/photobank" \
+  --output output
+```
+
+## Core Algorithm (Pipeline)
+1. **Ingest**: Watch one or more sync folders for new files.
+2. **Filter**:
+   - Reject width < 800px
+   - Reject blur score < 100 (variance of Laplacian)
+3. **Deduplicate**: Perceptual hash (pHash) with Hamming distance threshold.
+4. **AI Tagging**: CLIP tags into `people`, `events`, `stage/performance`, `artwork`, `buildings`, `logos`.
+5. **AI Ranking**: Score = 0.4 * resolution + 0.4 * sharpness + 0.2 * brightness.
+6. **Human Review**: Previews go to `output/review/`.
+7. **Optimize**: WebP conversions into `hero/`, `sections/`, `gallery/` and categorized folders.
+8. **Reporting**: `metadata/report.json` and `metadata/catalog.json`.
+
 ## GUI Picker (Fastest to Ship)
 Run a local browser app to search, filter, and copy selected images into any folder.
 
