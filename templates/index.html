@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Media Picker</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="title">Media Picker</div>
+      <div class="subtitle">Search, filter, and copy curated images</div>
+    </header>
+
+    <section class="controls">
+      <input id="search" type="text" placeholder="Search (filename or category)" />
+      <select id="category">
+        <option value="">All categories</option>
+        <option value="people">people</option>
+        <option value="events">events</option>
+        <option value="stage/performance">stage/performance</option>
+        <option value="artwork">artwork</option>
+        <option value="buildings">buildings</option>
+        <option value="logos">logos</option>
+        <option value="unclassified">unclassified</option>
+      </select>
+      <select id="sort">
+        <option value="latest">Latest first</option>
+        <option value="oldest">Oldest first</option>
+      </select>
+      <input id="limit" type="number" min="50" max="2000" value="300" />
+      <select id="autorefresh">
+        <option value="0">Auto refresh: off</option>
+        <option value="5">Auto refresh: 5s</option>
+        <option value="10">Auto refresh: 10s</option>
+        <option value="30">Auto refresh: 30s</option>
+      </select>
+      <button id="refresh">Refresh</button>
+    </section>
+
+    <section class="status">
+      <div id="count">0 items</div>
+      <div class="dest">
+        <input id="dest" type="text" placeholder="Destination folder path" />
+        <button id="choose">Choose Folder</button>
+        <button id="copy">Copy Selected</button>
+      </div>
+    </section>
+
+    <section id="grid" class="grid"></section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

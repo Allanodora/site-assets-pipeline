@@ -1,0 +1,9 @@
+opencv-python
+Pillow
+imagehash
+tqdm
+numpy
+watchdog
+open-clip-torch
+torch
+flask
